@@ -1,12 +1,12 @@
 # crc-tutorial
 
 Repozytorium do nauki: implementacja CRC16, testy jednostkowe (pytest)
-i automatyczne uruchamianie testów w CI (GitHub Actions).
+i automatyczne uruchamianie testÃ³w w CI (GitHub Actions).
 
-## ?? Dokumentacja
+## ðŸ“– Dokumentacja
 
-- [Czêœæ 1 — repo, CRC16, pytest, CI od zera](docs/tutorial-github-crc-ci.md)
-- [Czêœæ 2 — wektory w JSON, modu³ COBS, testy brzegowe](docs/tutorial-czesc2-json-cobs.md)
+- [CzÄ™Å›Ä‡ 1 â€” repo, CRC16, pytest, CI od zera](docs/tutorial-github-crc-ci.md)
+- [CzÄ™Å›Ä‡ 2 â€” wektory w JSON, moduÅ‚ COBS, testy brzegowe](docs/tutorial-czesc2-json-cobs.md)
 
 ## Szybki start
 
