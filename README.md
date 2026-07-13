@@ -1,4 +1,16 @@
 # crc-tutorial
-Nauka: CRC16 + pytest + CI
-?? [Tutorial: repo + CRC16 + pytest + CI](docs/tutorial-github-crc-ci.md)
-?? [Tutorial2: JSON + COBS](docs/tutorial-czesc2-json-cobs.md)
+
+Repozytorium do nauki: implementacja CRC16, testy jednostkowe (pytest)
+i automatyczne uruchamianie testów w CI (GitHub Actions).
+
+## ?? Dokumentacja
+
+- [Czêœæ 1 — repo, CRC16, pytest, CI od zera](docs/tutorial-github-crc-ci.md)
+- [Czêœæ 2 — wektory w JSON, modu³ COBS, testy brzegowe](docs/tutorial-czesc2-json-cobs.md)
+
+## Szybki start
+
+```bash
+pip install pytest
+pytest -v
+```
