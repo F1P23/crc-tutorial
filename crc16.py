@@ -1,5 +1,5 @@
 """
-CRC16/CCITT-FALSE — suma kontrolna wykrywajaca przeklamania danych.
+CRC16/CCITT-FALSE - suma kontrolna wykrywajaca przeklamania danych.
 
 Parametry wariantu (wazne! CRC16 ma kilkanascie odmian):
   wielomian: 0x1021, wartosc poczatkowa: 0xFFFF,
