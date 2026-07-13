@@ -1,0 +1,23 @@
+name: Testy                       # nazwa widoczna w zakladce Actions
+
+on: [push, pull_request]          # KIEDY uruchamiac: po kazdym pushu
+                                  # i przy kazdym pull requeœcie
+
+jobs:
+  testy-python:                   # nazwa zadania (dowolna)
+    runs-on: ubuntu-latest        # GitHub wypozycza nam swieza maszynke
+                                  # z Ubuntu (za darmo dla publicznych repo)
+    steps:
+      - name: Pobierz kod repo
+        uses: actions/checkout@v4         # gotowy klocek: git clone naszego repo
+
+      - name: Zainstaluj Pythona
+        uses: actions/setup-python@v5     # gotowy klocek: instalacja Pythona
+        with:
+          python-version: "3.12"
+
+      - name: Zainstaluj pytest
+        run: pip install pytest           # run = zwykle polecenie terminala
+
+      - name: Uruchom testy
+        run: pytest -v                    # kod wyjscia != 0  =>  czerwony ?
