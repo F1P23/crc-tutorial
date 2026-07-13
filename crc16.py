@@ -11,7 +11,7 @@ Standardowy wektor kontrolny: crc16("123456789") == 0x29B1
 
 def crc16_ccitt_false(data: bytes) -> int:
     """Liczy CRC16/CCITT-FALSE z podanych bajtow."""
-    crc = 0x0000                          # wartosc poczatkowa
+    crc = 0xFFFF                          # wartosc poczatkowa
     for byte in data:
         crc ^= byte << 8                  # wciagnij bajt w gorna polowke
         for _ in range(8):                # przetworz 8 bitow
