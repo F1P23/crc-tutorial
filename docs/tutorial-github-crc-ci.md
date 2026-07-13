@@ -390,7 +390,7 @@ pytest
 ========================= test session starts =========================
 collected 5 items
 
-test_crc16.py F..F.                                              [100%]
+test_crc16.py FFF..                                              [100%]
 
 ============================== FAILURES ===============================
 ______________________ test_wektor_standardowy ________________________
@@ -401,17 +401,17 @@ E       assert 12739 == 10673
 E        +  where 12739 = crc16_ccitt_false(b'123456789')
 
 test_crc16.py:8: AssertionError
-==================== 2 failed, 3 passed in 0.03s ======================
+==================== 3 failed, 2 passed in 0.03s ======================
 ```
 
 Naucz się czytać ten wydruk, bo będziesz go widywać często:
 
-- `F..F.` — mapka: test 1 padł (F), testy 2-3 przeszły (kropki), test 4 padł, test 5 przeszedł.
+- `FFF..` — mapka: testy 1-3 padły (F), testy 4-5 przeszły (kropki).
 - Strzałka `>` pokazuje linię, która zawiodła.
 - Linia `E assert 12739 == 10673` — **wyszło 12739 (0x31C3), oczekiwano 10673 (0x29B1)**. Pytest sam podstawił wartości — nie musisz nic drukować, widzisz obie liczby.
-- `0x31C3` to akurat znany wynik wariantu XMODEM dla "123456789" — doświadczony człowiek po samej tej liczbie poznałby, JAKI błąd popełniono. Wektory wzorcowe działają jak odciski palców wariantów algorytmu.
+- `0x31C3` to akurat znany wynik wariantu XMODEM dla "123456789" — doświadczony człowiek po samej tej liczbie poznałby, JAKI błąd popełniono. Wektory wzorcowe działają jak odciski palców wariantów algorytmu. Zresztą `test_puste_dane` pokazuje błąd jeszcze dosłowniej: CRC z pustych danych to nietknięta wartość początkowa — wyszło 0, więc init jest 0x0000, koniec śledztwa.
 
-Zwróć uwagę: 3 z 5 testów PRZESZŁY. Test właściwości ("różne dane → różny CRC") i test zakresu nie wykrywają tego błędu — bo zepsuty kod dalej liczy poprawny STRUKTURALNIE CRC, tylko w złym wariancie. Dlatego potrzebujesz wektora wzorcowego jako kotwicy. Gdybyś miał tylko testy właściwości, ten błąd przeszedłby niezauważony.
+Zwróć uwagę: padły dokładnie te trzy testy, które sprawdzają KONKRETNE wartości — a oba testy WŁAŚCIWOŚCI ("różne dane → różny CRC", "wynik ≤ 0xFFFF") przeszły. Zepsuty kod dalej liczy poprawny STRUKTURALNIE CRC, tylko w złym wariancie, więc właściwości się zgadzają. Dlatego potrzebujesz wektorów wzorcowych jako kotwic: gdybyś miał tylko testy właściwości, ten błąd przeszedłby niezauważony.
 
 ## 8.3 A teraz wysyłamy zepsuty kod — niech CI go złapie
 
