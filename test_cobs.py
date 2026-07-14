@@ -47,3 +47,19 @@ def test_decode_odrzuca_smieci():
         cobs_decode(b"\x05\x11")       # licznik 5, a bajtow tylko 1 - ucieta
     with pytest.raises(ValueError):
         cobs_decode(b"\x00\x11")       # zero jako licznik - nielegalne
+
+
+def test_granica_254_bajtow():
+    """254 niezerowe bajty: jedna pelna grupa 0xFF, bez ogona."""
+    dane = bytes(range(1, 255))                 # 01 02 ... FE (254 bajty, bez zer)
+    zakodowane = cobs_encode(dane)
+    assert zakodowane == b"\xff" + dane          # dokladnie 255 bajtow
+    assert cobs_decode(zakodowane) == dane
+
+
+def test_granica_255_bajtow():
+    """255 bajtow: pelna grupa + druga grupa z jednym bajtem."""
+    dane = bytes(range(1, 255)) + b"\x42"
+    zakodowane = cobs_encode(dane)
+    assert zakodowane == b"\xff" + bytes(range(1, 255)) + b"\x02\x42"
+    assert cobs_decode(zakodowane) == dane
