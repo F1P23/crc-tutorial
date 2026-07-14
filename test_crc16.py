@@ -1,29 +1,34 @@
-"""Testy CRC16 - pytest znajdzie ten plik po nazwie test_*.py."""
+"""Testy CRC16 na wektorach z testvectors/crc16.json."""
+
+import json
+from pathlib import Path
+
+import pytest
 
 from crc16 import crc16_ccitt_false
 
-
-def test_wektor_standardowy():
-    """Opublikowana wartosc wzorcowa dla CCITT-FALSE."""
-    assert crc16_ccitt_false(b"123456789") == 0x29B1
-
-
-def test_puste_dane():
-    """CRC z zera bajtow = wartosc poczatkowa (nic jej nie zmienilo)."""
-    assert crc16_ccitt_false(b"") == 0xFFFF
+# wczytanie wektorow NA ETAPIE ZBIERANIA testow (raz, nie w kazdym tescie)
+_DANE = json.loads(
+    (Path(__file__).parent / "testvectors" / "crc16.json").read_text(encoding="utf-8")
+)
 
 
-def test_jeden_bajt():
-    """Wartosc CRC16/CCITT-FALSE dla pojedynczego bajtu 'A'."""
-    assert crc16_ccitt_false(b"A") == 0xB915
+@pytest.mark.parametrize(
+    "wektor",
+    _DANE["vectors"],
+    ids=[w["name"] for w in _DANE["vectors"]],   # czytelne nazwy w wydruku
+)
+def test_wektor(wektor):
+    dane = bytes.fromhex(wektor["input_hex"])
+    oczekiwany = int(wektor["expected"], 16)
+    assert crc16_ccitt_false(dane) == oczekiwany
 
 
-def test_zmiana_bitu_zmienia_crc():
-    """Wlasciwosc: rozne dane => rozny CRC (sens istnienia CRC)."""
+def test_rozne_dane_daja_rozny_crc():
+    """Test wlasciwosci - zostaje, bo sprawdza cos innego niz wektory."""
     assert crc16_ccitt_false(b"Hello") != crc16_ccitt_false(b"Hella")
 
 
 def test_wynik_miesci_sie_w_16_bitach():
-    """CRC16 nigdy nie moze przekroczyc 0xFFFF."""
     for dane in [b"", b"x", b"123456789", bytes(range(256))]:
         assert 0 <= crc16_ccitt_false(dane) <= 0xFFFF

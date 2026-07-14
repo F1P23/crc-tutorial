@@ -1,0 +1,9 @@
+{
+  "algorithm": "CRC16/CCITT-FALSE",
+  "params": { "poly": "0x1021", "init": "0xFFFF", "refin": false, "refout": false, "xorout": "0x0000" },
+  "vectors": [
+    { "name": "wzorcowy (opublikowany)", "input_hex": "313233343536373839", "expected": "0x29B1" },
+    { "name": "puste dane = init",        "input_hex": "",                   "expected": "0xFFFF" },
+    { "name": "jeden bajt 'A'",           "input_hex": "41",                 "expected": "0xB915" }
+  ]
+}
