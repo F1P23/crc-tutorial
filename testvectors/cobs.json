@@ -1,0 +1,12 @@
+{
+  "algorithm": "COBS",
+  "vectors": [
+    { "name": "puste dane",          "decoded_hex": "",           "encoded_hex": "01" },
+    { "name": "samo zero",           "decoded_hex": "00",         "encoded_hex": "0101" },
+    { "name": "dwa zera",            "decoded_hex": "0000",       "encoded_hex": "010101" },
+    { "name": "bez zer",             "decoded_hex": "112233",     "encoded_hex": "04112233" },
+    { "name": "zero w srodku",       "decoded_hex": "110022",     "encoded_hex": "02110222" },
+    { "name": "zero miedzy grupami", "decoded_hex": "11220033",   "encoded_hex": "0311220233" },
+    { "name": "piec bajtow bez zer", "decoded_hex": "1122334455", "encoded_hex": "061122334455" }
+  ]
+}
